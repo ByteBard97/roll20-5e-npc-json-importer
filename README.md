@@ -233,6 +233,10 @@ While `JSON_STRUCTURE.md` contains the full details, here are a few of the most 
         *   **Lair Actions:** If your NPC has Lair Actions distinct from its Mythic Actions, you will need to manually add these to the "Lair Actions" section of the NPC's statblock on the character sheet. The JSON field `mythic_actions` can be used to *display* text related to lair actions if you wish, but it doesn't mechanically populate a separate Lair Actions sheet section.
         *   **Spells:** As noted in "Key Features", the script sets up the spellcasting infrastructure (ability, slots, caster level) but does **not** add individual spells to the spellbook. You must manually drag and drop spells from the Roll20 Compendium (or manually create them) onto the imported NPC's character sheet.
 
+## Acknowledgements
+
+*   A big thank you to **Zanthox** ([@Zanthox](https://github.com/Zanthox)) for the original [Roll205eSheetImport](https://github.com/Zanthox/Roll205eSheetImport) script (also discussed on the [Roll20 Forums](https://app.roll20.net/forum/post/10800206/script-importstats-take-monster-stat-blocks-and-import-them-into-roll20-5e-npc-sheets)), which served as a foundational inspiration and a valuable learning resource for this project. Many of the initial concepts and approaches for parsing complex statblocks were derived from their pioneering work.
+
 ## License
 
 This script is licensed under the [MIT License](LICENSE).
