@@ -1,0 +1,118 @@
+{
+    "name": "Arcane Construct Guardian",
+    "size": "Large",
+    "type": "construct",
+    "alignment": "lawful neutral",
+    "cr": "10",
+    "ac": {
+        "value": 18,
+        "notes": "reinforced plating; Immune to critical hits not made with adamantine weapons."
+    },
+    "hp": {
+        "average": 157,
+        "formula": "15d10 + 75"
+    },
+    "speed": "30 ft., fly 30 ft. (hover)",
+    "abilities": {
+        "str": 20,
+        "dex": 10,
+        "con": 20,
+        "int": 14,
+        "wis": 12,
+        "cha": 1
+    },
+    "saves": {
+        "str": "+9",
+        "con": "+9",
+        "wis": "+5"
+    },
+    "skills": {
+        "perception": "+5",
+        "arcana": "+6"
+    },
+    "damage_immunities": "poison, psychic, bludgeoning, piercing, and slashing from nonmagical attacks not made with adamantine weapons",
+    "condition_immunities": "charmed, exhaustion, frightened, paralyzed, petrified, poisoned",
+    "senses": "darkvision 120 ft., passive Perception 15",
+    "languages": "understands Common, Draconic, and the languages of its creator but cannot speak",
+    "traits": [
+        {
+            "name": "Immutable Form",
+            "desc": "The guardian is immune to any spell or effect that would alter its form."
+        },
+        {
+            "name": "Magic Resistance",
+            "desc": "The guardian has advantage on saving throws against spells and other magical effects."
+        },
+        {
+            "name": "Siege Monster",
+            "desc": "The guardian deals double damage to objects and structures."
+        }
+    ],
+    "actions": [
+        {
+            "name": "Multiattack",
+            "desc": "The guardian makes two Slam attacks."
+        },
+        {
+            "name": "Slam",
+            "attack": {
+                "type": "Melee",
+                "tohit": "+9",
+                "reach": "10 ft.",
+                "target": "one target",
+                "dmg1": "3d8+5",
+                "type1": "bludgeoning"
+            }
+        },
+        {
+            "name": "Arcane Pulse (Recharge 5-6)",
+            "desc": "The guardian emits a pulse of arcane energy in a 30-foot radius. Each creature in that area must make a DC 15 Dexterity saving throw, taking 27 (6d8) force damage on a failed save, or half as much damage on a successful one."
+        }
+    ],
+    "reactions": [
+        {
+            "name": "Defensive Matrix",
+            "desc": "When a creature the guardian can see attacks a target other than itself that is within 10 feet of it, the guardian can use its reaction to impose disadvantage on the attack roll."
+        }
+    ],
+    "legendary": {
+        "count": 3,
+        "actions": [
+            {
+                "name": "Detect",
+                "desc": "The guardian makes a Wisdom (Perception) check."
+            },
+            {
+                "name": "Slam Attack (Costs 2 Actions)",
+                "desc": "The guardian makes one Slam attack."
+            },
+            {
+                "name": "Arcane Shield (Costs 3 Actions)",
+                "desc": "The guardian gains temporary hit points equal to its CR (10) until the end of its next turn."
+            }
+        ]
+    },
+    "mythic_actions": {
+        "desc": "If the guardian is a mythic encounter, it can take mythic actions. When the guardian is reduced to 0 hit points, it doesn't die or fall unconscious. Instead, its arcane core overloads, and it regains all its hit points. It then gains the following mythic actions options.",
+        "actions": [
+            {
+                "name": "Overcharge",
+                "desc": "The guardian recharges its Arcane Pulse and uses it immediately."
+            },
+            {
+                "name": "Empowered Slam (Costs 2 Actions)",
+                "desc": "The guardian makes a Slam attack. On a hit, the target takes an extra 13 (3d8) force damage."
+            }
+        ]
+    },
+    "spellcasting_ability": "Intelligence",
+    "caster_level": 7,
+    "spell_slots": {
+        "1": 4,
+        "2": 3,
+        "3": 3,
+        "4": 1
+    },
+    "init_tiebreaker": "@{dexterity}/100",
+    "bio": "An Arcane Construct Guardian is a powerful sentinel created through potent magic to protect ancient sites or powerful artifacts. Its metallic body is surprisingly agile, and it wields arcane energy with precision.\n\n**Tactics:** The guardian uses its Arcane Pulse to soften groups of enemies and its slam attacks for single targets. It employs its Defensive Matrix to protect key allies or objectives. If facing a significant threat, it will use its legendary and mythic actions to control the battlefield and enhance its own capabilities."
+} 

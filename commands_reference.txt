@@ -1,0 +1,21 @@
+!importjson handout|TestNPCJsonInput
+
+!importjson handout|TestNPCJson2
+
+!importjson handout|TestNPC
+
+!importjson handout|skills_npc
+
+!inspectNPC
+
+!importjson handout|spells_test
+!importjson handout|boss_monster
+
+
+ git diff --no-index "debug_npc_before.txt" "debug_npc_after.txt" > "git_diff_output.txt"
+ git diff --no-index "debug_npc_before.txt" "debug_npc_after.txt" > "git_diff_output.txt"
+
+git diff --no-index "round7/before.txt" "round7/after.txt" > "round7/diff_output.txt"
+
+!importjson handout|town_guard
+!importjson handout|comprehensive_test

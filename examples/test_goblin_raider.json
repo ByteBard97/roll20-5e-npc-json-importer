@@ -1,0 +1,34 @@
+{
+  "name": "Test Goblin Raider H",
+
+  "ac": 13,
+
+  "hp": { "average": 7, "formula": "2d6" },
+
+  "abilities": { "str": 8, "dex": 14, "con": 10, "int": 10, "wis": 8, "cha": 8 },
+
+  "actions": [
+
+    {
+
+      "name": "Shortsword H",
+
+      "desc": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage.",
+
+      "attack": {
+
+        "type": "Melee",
+
+        "tohit": "+4",
+
+        "dmg1": "1d6+2",
+
+        "type1": "slashing"
+
+      }
+
+    }
+
+  ]
+
+}

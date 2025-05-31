@@ -1,0 +1,64 @@
+{
+  "name": "Arcane Scholar Test",
+  "size": "Medium",
+  "type": "humanoid (human)",
+  "alignment": "Neutral",
+  "ac": {
+    "value": 12,
+    "notes": "mage armor"
+  },
+  "hp": {
+    "average": 44,
+    "formula": "8d8 + 8"
+  },
+  "speed": "30 ft.",
+  "abilities": {
+    "str": 10,
+    "dex": 14,
+    "con": 13,
+    "int": 17,
+    "wis": 12,
+    "cha": 11
+  },
+  "saves": {
+    "int": "+6",
+    "wis": "+4"
+  },
+  "skills": {
+    "arcana": "+9",
+    "history": "+6"
+  },
+  "senses": "passive Perception 11",
+  "languages": "Common, Elvish, Draconic",
+  "cr": "6",
+  "pb": "+3",
+  "spellcasting_ability": "Intelligence",
+  "caster_level": 9,
+  "spell_slots": {
+    "1": 4,
+    "2": 3,
+    "3": 3,
+    "4": 3,
+    "5": 1
+  },
+  "traits": [
+    {
+      "name": "Spellcasting",
+      "desc": "The Arcane Scholar is a 9th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks). The scholar has the following wizard spells prepared:\n\nCantrips (at will): fire bolt, light, mage hand, prestidigitation\n1st level (4 slots): detect magic, mage armor, magic missile, shield\n2nd level (3 slots): misty step, suggestion\n3rd level (3 slots): counterspell, fireball, fly\n4th level (3 slots): greater invisibility, ice storm\n5th level (1 slot): cone of cold"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Dagger",
+      "attack": {
+        "type": "Melee",
+        "tohit": "+5",
+        "reach": "5 ft.",
+        "target": "one target",
+        "dmg1": "1d4 + 2",
+        "type1": "piercing"
+      },
+      "desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) piercing damage."
+    }
+  ]
+} 

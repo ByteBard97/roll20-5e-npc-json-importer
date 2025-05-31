@@ -1,0 +1,162 @@
+{
+  "name": "Eurysphex, Brood-Mother of Arachne",
+  "size": "Large",
+  "type": "monstrosity (fey)",
+  "alignment": "Chaotic Evil",
+  "cr": "9",
+  "pb": "+4",
+  "ac": {
+    "value": 16,
+    "notes": "natural armor"
+  },
+  "hp": {
+    "average": 165,
+    "formula": "22d10+44"
+  },
+  "speed": "40 ft., climb 40 ft.",
+  "abilities": {
+    "str": 16,
+    "dex": 18,
+    "con": 15,
+    "int": 14,
+    "wis": 13,
+    "cha": 16
+  },
+  "saves": {
+    "dex": "+8",
+    "wis": "+5"
+  },
+  "skills": {
+    "perception": "+9",
+    "stealth": "+12"
+  },
+  "damage_vulnerabilities": "",
+  "damage_resistances": "Poison",
+  "damage_immunities": "",
+  "condition_immunities": "Charmed",
+  "senses": "blindsight 10 ft., darkvision 120 ft., passive Perception 19",
+  "languages": "Common, Draconic, Sylvan",
+  "spellcasting_ability": "Charisma",
+  "caster_level": 8,
+  "spell_slots": {
+    "1": 4,
+    "2": 3,
+    "3": 3,
+    "4": 2
+  },
+  "traits": [
+    {
+      "name": "Fey Ancestry",
+      "desc": "Eurysphex has advantage on saving throws against being charmed, and magic can't put her to sleep."
+    },
+    {
+      "name": "Legendary Resistance (2/Day)",
+      "desc": "If Eurysphex fails a saving throw, she can choose to succeed instead."
+    },
+    {
+      "name": "Spider Climb",
+      "desc": "Eurysphex can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+    },
+    {
+      "name": "Web Sense",
+      "desc": "While in contact with a web, Eurysphex knows the exact location of any other creature in contact with the same web."
+    },
+    {
+      "name": "Web Walker",
+      "desc": "Eurysphex ignores movement restrictions caused by webbing."
+    },
+    {
+      "name": "Arachne's Blessing",
+      "desc": "While in her lair, Eurysphex can take the Hide action as a bonus action and has advantage on Stealth checks."
+    },
+    {
+      "name": "Spellcasting",
+      "desc": "Eurysphex is an 8th-level spellcaster. Her spellcasting ability is Charisma (spell save DC 15, +7 to hit with spell attacks). She has the following sorcerer spells prepared:\n\nCantrips (at will): mage hand, minor illusion, poison spray\n1st Level: charm person, entangle\n2nd Level: invisibility, web\n3rd Level: fear, hypnotic pattern\n4th Level: confusion, polymorph"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Multiattack",
+      "desc": "Eurysphex makes two attacks: one with her bite and one with her claws, or she can use Web Shot twice."
+    },
+    {
+      "name": "Bite",
+      "attack": {
+        "type": "Melee",
+        "tohit": "+8",
+        "distance": "5 ft.",
+        "target": "one creature",
+        "dmg1": "2d6+4",
+        "type1": "piercing",
+        "dmg2": "2d8",
+        "type2": "poison",
+        "save_dc": 15,
+        "save_ability": "Constitution",
+        "save_effect": "take an additional 9 (2d8) poison damage and be poisoned for 1 hour. On a successful save, the target takes half of this additional damage and isn't poisoned."
+      },
+      "desc": "Hit: 11 (2d6 + 4) piercing damage plus 9 (2d8) poison damage. If the target is a creature, it must make a DC 15 Constitution saving throw. On a failed save, the target takes 9 (2d8) poison damage and is poisoned for 1 hour. On a successful save, the target takes half damage and isn't poisoned."
+    },
+    {
+      "name": "Claws",
+      "attack": {
+        "type": "Melee",
+        "tohit": "+8",
+        "distance": "10 ft.",
+        "target": "one target",
+        "dmg1": "2d8+4",
+        "type1": "slashing"
+      },
+      "desc": "Hit: 13 (2d8 + 4) slashing damage. If the target is Medium or smaller, it is grappled (escape DC 16). Eurysphex can grapple up to two creatures at once."
+    },
+    {
+      "name": "Web Shot",
+      "attack": {
+        "type": "Ranged",
+        "tohit": "+8",
+        "range": "30/60 ft.",
+        "target": "one Large or smaller creature"
+      },
+      "desc": "Hit: The target is restrained by webbing. As an action, the restrained target can make a DC 16 Strength check, bursting the webbing on a success. The webbing can also be attacked and destroyed (AC 12; 15 hit points; vulnerability to fire damage; immunity to bludgeoning, poison, and psychic damage)."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "name": "Spawn Broodling",
+      "desc": "Eurysphex causes one nearby egg cluster to hatch, spawning a Giant Wolf Spider in an unoccupied space within 30 feet. The spider acts on Eurysphex's initiative and follows her mental commands. Only two broodlings can be active at once."
+    }
+  ],
+  "reactions": [
+    {
+      "name": "Web Shield",
+      "desc": "When targeted by a ranged attack, Eurysphex can weave a web shield as a reaction. The attack has disadvantage, and if it misses, the attacker is caught in webbing and restrained until the end of their next turn."
+    }
+  ],
+  "legendary": {
+    "count": 3,
+    "actions": [
+      {
+        "name": "Move",
+        "desc": "Eurysphex moves up to her speed without provoking opportunity attacks."
+      },
+      {
+        "name": "Web Shot",
+        "desc": "Eurysphex makes a Web Shot attack."
+      },
+      {
+        "name": "Viridian Web Burst (Costs 2 Actions)",
+        "cost": 2,
+        "desc": "Eurysphex creates a 20-foot radius web burst centered on a point she can see within 60 feet. All creatures in the area must make a DC 16 Dexterity saving throw. On a failed save, creatures take 14 (4d6) acid damage and are restrained until the end of their next turn. On a successful save, they take half damage and aren't restrained. The area becomes difficult terrain for 1 minute."
+      },
+      {
+        "name": "Brood Awakening (Costs 3 Actions)",
+        "cost": 3,
+        "desc": "Eurysphex awakens her dormant brood. Three Giant Wolf Spiders emerge from egg clusters around the battlefield in unoccupied spaces of her choice within 60 feet. These spiders act immediately and pursue different targets. Additionally, all current broodlings gain 15 temporary hit points and their next attack deals an extra 1d6 poison damage. Can only be used once per encounter."
+      },
+      {
+        "name": "Arachne's Wrath (Costs 3 Actions)",
+        "cost": 3,
+        "desc": "Eurysphex transforms for 3 rounds, gaining the following benefits: Her size increases to Huge, she gains resistance to all damage types except fire, her reach increases to 15 feet, her bite attack deals an additional 2d6 poison damage, she can move through other creatures' spaces and ignore difficult terrain. At the start of each of her turns, all creatures within 10 feet must make a DC 16 Constitution saving throw or be poisoned until the start of their next turn. Can only be used once per encounter when bloodied (below half hit points)."
+      }
+    ]
+  }
+} 

@@ -1,0 +1,107 @@
+{
+  "name": "Simple NPC",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "neutral",
+  "ac": {
+    "value": 10,
+    "notes": "AC Notes"
+  },
+  "hp": {
+    "average": 10,
+    "formula": "1d10+0"
+  },
+  "speed": "30 ft.",
+  "abilities": {
+    "str": 10,
+    "dex": 10,
+    "con": 10,
+    "int": 10,
+    "wis": 10,
+    "cha": 10
+  },
+  "saves": {
+    "con": "+0",
+    "wis": "+0"
+  },
+  "skills": {
+    "athletics": "+0",
+    "insight": "+0",
+    "intimidation": "+0",
+    "perception": "+0"
+  },
+  "damage_vulnerabilities": "Vuln1",
+  "damage_resistances": "Resist1",
+  "damage_immunities": "Immune1",
+  "condition_immunities": "CondImmune1",
+  "senses": "Senses Desc",
+  "languages": "Lang1",
+  "cr": "1",
+  "traits": [
+    {
+      "name": "Trait1",
+      "desc": "Trait1Desc"
+    },
+    {
+      "name": "Trait2",
+      "desc": "Trait2Desc"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Action1",
+      "desc": "Action1Desc"
+    },
+    {
+      "name": "Action2",
+      "desc": "Action2Desc",
+      "attack": {
+        "type": "Melee",
+        "tohit": "+0",
+        "dmg1": "1d4",
+        "type1": "DmgType1",
+        "dmg2": "1d4",
+        "type2": "DmgType2"
+      }
+    },
+    {
+      "name": "Action3",
+      "desc": "Action3Desc",
+      "attack": {
+        "type": "Ranged",
+        "tohit": "+0",
+        "dmg1": "1d4",
+        "type1": "DmgType1"
+      }
+    }
+  ],
+  "bonus_actions": [
+    {
+      "name": "BonusAction1",
+      "desc": "BonusAction1Desc"
+    }
+  ],
+  "reactions": [
+    {
+      "name": "Reaction1",
+      "desc": "Reaction1Desc"
+    }
+  ],
+  "legendary": {
+    "count": 3,
+    "actions": [
+      {
+        "name": "LA1",
+        "desc": "LA1Desc"
+      },
+      {
+        "name": "LA2",
+        "desc": "LA2Desc"
+      },
+      {
+        "name": "LA3",
+        "desc": "LA3Desc"
+      }
+    ]
+  }
+} 

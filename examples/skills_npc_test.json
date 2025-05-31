@@ -1,0 +1,220 @@
+{
+
+  "name": "Skills NPC",
+
+  "size": "Medium",
+
+  "type": "humanoid",
+
+  "alignment": "neutral",
+
+  "ac": {
+
+    "value": 11,
+
+    "notes": "AC Notes"
+
+  },
+
+  "hp": {
+
+    "average": 10,
+
+    "formula": "1d10+0"
+
+  },
+
+  "speed": "30 ft.",
+
+  "abilities": {
+
+    "str": 10,
+
+    "dex": 11,
+
+    "con": 12,
+
+    "int": 13,
+
+    "wis": 14,
+
+    "cha": 15
+
+  },
+
+  "saves": {
+    "str": "+1",
+    "dex": "+2",
+    "con": "+3",
+    "int": "+4",
+    "wis": "+5",
+    "cha": "+6"
+  },
+
+  "skills": {
+
+    "athletics": "+1",
+
+    "insight": "+2",
+
+    "intimidation": "+3",
+
+    "perception": "+4"
+
+  },
+
+  "damage_vulnerabilities": "Vuln1",
+
+  "damage_resistances": "Resist1",
+
+  "damage_immunities": "Immune1",
+
+  "condition_immunities": "CondImmune1",
+
+  "senses": "Senses Desc",
+
+  "languages": "Lang1",
+
+  "cr": "3",
+
+  "pb": "+2",
+
+  "traits": [
+
+    {
+
+      "name": "Trait1",
+
+      "desc": "Trait1Desc"
+
+    },
+
+    {
+
+      "name": "Trait2",
+
+      "desc": "Trait2Desc"
+
+    }
+
+  ],
+
+  "actions": [
+
+    {
+
+      "name": "Action1",
+
+      "desc": "Action1Desc"
+
+    },
+
+    {
+
+      "name": "Action2",
+
+      "desc": "Action2Desc",
+
+      "attack": {
+
+        "type": "Melee",
+
+        "tohit": "+5",
+
+        "reach": "5 ft.",
+
+        "dmg1": "1d8+3",
+
+        "type1": "slashing",
+
+        "dmg2": "1d6",
+
+        "type2": "fire"
+
+      }
+
+    },
+
+    {
+
+      "name": "Action3",
+
+      "desc": "Action3Desc",
+
+      "attack": {
+
+        "type": "Ranged",
+
+        "tohit": "+3",
+
+        "range": "60/120 ft.",
+
+        "dmg1": "1d10+2",
+
+        "type1": "piercing"
+
+      }
+
+    }
+
+  ],
+
+  "bonus_actions": [
+
+    {
+
+      "name": "BonusAction1",
+
+      "desc": "BonusAction1Desc"
+
+    }
+
+  ],
+
+  "reactions": [
+
+    {
+
+      "name": "Reaction1",
+
+      "desc": "Reaction1Desc"
+
+    }
+
+  ],
+
+  "legendary": {
+
+    "count": 3,
+
+    "actions": [
+
+      {
+
+        "name": "LA1",
+
+        "desc": "LA1Desc"
+
+      },
+
+      {
+
+        "name": "LA2",
+
+        "desc": "LA2Desc"
+
+      },
+
+      {
+
+        "name": "LA3",
+
+        "desc": "LA3Desc"
+
+      }
+
+    ]
+
+  }
+
+} 

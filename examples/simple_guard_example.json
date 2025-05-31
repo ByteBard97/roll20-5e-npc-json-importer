@@ -1,0 +1,58 @@
+{
+    "name": "Town Guard",
+    "size": "Medium",
+    "type": "humanoid (any race)",
+    "alignment": "lawful neutral",
+    "cr": "1/8",
+    "xp": 25,
+    "ac": {
+        "value": 16,
+        "notes": "chain mail, shield"
+    },
+    "hp": {
+        "average": 11,
+        "formula": "2d8 + 2"
+    },
+    "speed": "30 ft.",
+    "abilities": {
+        "str": 13,
+        "dex": 12,
+        "con": 12,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+    },
+    "skills": {
+        "perception": "+2"
+    },
+    "senses": "passive Perception 12",
+    "languages": "Common, plus any one language",
+    "actions": [
+        {
+            "name": "Spear (Melee)",
+            "attack": {
+                "type": "Melee",
+                "tohit": "+3",
+                "reach": "5 ft.",
+                "target": "one target",
+                "dmg1": "1d6+1",
+                "versatile_dmg1": "1d8+1", 
+                "type1": "piercing"
+            },
+            "desc": "Hit: 4 (1d6+1) piercing damage. If used with two hands, the damage is 5 (1d8+1) piercing damage."
+        },
+        {
+            "name": "Spear (Ranged)",
+            "attack": {
+                "type": "Ranged",
+                "tohit": "+3",
+                "range": "20/60 ft.",
+                "target": "one target",
+                "dmg1": "1d6+1",
+                "type1": "piercing"
+            },
+            "desc": "Hit: 4 (1d6+1) piercing damage."
+        }
+    ],
+    "bio": "Town guards are responsible for keeping the peace, patrolling streets, and defending their communities from common threats."
+} 

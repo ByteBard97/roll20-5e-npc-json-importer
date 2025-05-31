@@ -1,0 +1,179 @@
+{
+  "name": "The Obsidian Devourer",
+  "size": "Huge",
+  "type": "aberration (titan)",
+  "alignment": "Chaotic Evil",
+  "cr": "20",
+  "pb": "+6",
+  "ac": {
+    "value": 21,
+    "notes": "natural armor, reinforced with abyssal plating"
+  },
+  "hp": {
+    "average": 350,
+    "formula": "20d20+140"
+  },
+  "speed": "40 ft., fly 60 ft. (hover), burrow 30 ft.",
+  "abilities": {
+    "str": 28,
+    "dex": 14,
+    "con": 26,
+    "int": 20,
+    "wis": 18,
+    "cha": 24
+  },
+  "saves": {
+    "str": "+9",
+    "dex": "+8",
+    "con": "+14",
+    "int": "+11",
+    "wis": "+12",
+    "cha": "+7"
+  },
+  "skills": {
+    "athletics": "+15",
+    "perception": "+10",
+    "intimidation": "+13",
+    "arcana": "+11",
+    "stealth": "+2"
+  },
+  "damage_vulnerabilities": "Radiant",
+  "damage_resistances": "necrotic, bludgeoning, piercing, and slashing from nonmagical attacks",
+  "damage_immunities": "poison",
+  "condition_immunities": "charmed, exhaustion, frightened, paralyzed, petrified, poisoned",
+  "senses": "darkvision 120 ft., truesight 60 ft., passive Perception 22",
+  "languages": "Abyssal, Celestial, Draconic, Infernal, telepathy 120 ft.",
+  "spellcasting_ability": "Charisma",
+  "caster_level": 20,
+  "spell_slots": {
+    "1": 4,
+    "2": 3,
+    "3": 3,
+    "4": 3,
+    "5": 3,
+    "6": 2,
+    "7": 2,
+    "8": 1,
+    "9": 1
+  },
+  "traits": [
+    {
+      "name": "Legendary Resistance (3/Day)",
+      "desc": "If the Devourer fails a saving throw, it can choose to succeed instead."
+    },
+    {
+      "name": "Magic Resistance",
+      "desc": "The Devourer has advantage on saving throws against spells and other magical effects."
+    },
+    {
+      "name": "Siege Monster",
+      "desc": "The Devourer deals double damage to objects and structures."
+    },
+    {
+      "name": "Aura of Despair",
+      "desc": "Any creature hostile to the Devourer that starts its turn within 30 feet of it must make a DC 21 Wisdom saving throw. On a failed save, the creature has disadvantage on attack rolls and ability checks until the start of its next turn. On a successful save, the creature is immune to this aura for 24 hours."
+    },
+    {
+      "name": "Spellcasting",
+      "desc": "The Devourer is a 20th-level spellcaster. Its spellcasting ability is Charisma (spell save DC 21, +13 to hit with spell attacks). It has the following wizard spells prepared:\\n\\nCantrips (at will): mage hand, prestidigitation, ray of frost\\n1st level (4 slots): magic missile (5 darts), shield, thunderwave\\n2nd level (3 slots): misty step, mirror image, web\\n3rd level (3 slots): counterspell, dispel magic, fireball\\n4th level (3 slots): dimension door, greater invisibility\\n5th level (3 slots): cone of cold, wall of force\\n6th level (2 slots): chain lightning, disintegrate\\n7th level (2 slots): finger of death, plane shift\\n8th level (1 slot): dominate monster, power word stun\\n9th level (1 slot): meteor swarm, power word kill"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Multiattack",
+      "desc": "The Devourer makes three attacks: two with its Obsidian Claws and one with its Void Tendril."
+    },
+    {
+      "name": "Obsidian Claw",
+      "attack": {
+        "type": "Melee",
+        "tohit": "+15",
+        "reach": "15 ft.",
+        "target": "one target",
+        "dmg1": "3d8+9",
+        "type1": "slashing",
+        "dmg2": "3d8",
+        "type2": "necrotic"
+      },
+      "desc": "Hit: 22 (3d8 + 9) slashing damage plus 13 (3d8) necrotic damage."
+    },
+    {
+      "name": "Void Tendril",
+      "attack": {
+        "type": "Melee",
+        "tohit": "+15",
+        "reach": "20 ft.",
+        "target": "one target",
+        "dmg1": "2d8+9",
+        "type1": "bludgeoning"
+      },
+      "desc": "Hit: 18 (2d8 + 9) bludgeoning damage, and the target is grappled (escape DC 19). Until this grapple ends, the target is restrained, and the Devourer can't use this tendril on another target."
+    },
+    {
+      "name": "Shadow Bolt",
+      "attack": {
+        "type": "Ranged",
+        "tohit": "+13",
+        "range": "120 ft.",
+        "target": "one target",
+        "dmg1": "6d8+7",
+        "type1": "necrotic"
+      },
+      "desc": "Hit: 34 (6d8 + 7) necrotic damage, and the target can't regain hit points until the end of its next turn."
+    },
+    {
+      "name": "Annihilating Gaze (Recharge 5-6)",
+      "desc": "The Devourer targets one creature it can see within 120 feet. The target must make a DC 21 Dexterity saving throw, taking 77 (14d10) force damage on a failed save, or half as much damage on a successful one. If this damage reduces the target to 0 hit points, it is disintegrated."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "name": "Consume Essence",
+      "desc": "The Devourer targets one creature grappled by it. The target must make a DC 21 Constitution saving throw. On a failed save, the target takes 27 (6d8) necrotic damage, and the Devourer regains hit points equal to half the damage dealt."
+    }
+  ],
+  "reactions": [
+    {
+      "name": "Void Shift",
+      "desc": "When the Devourer is hit by an attack, it can teleport up to 60 feet to an unoccupied space it can see, and the attack misses."
+    }
+  ],
+  "legendary": {
+    "count": 3,
+    "actions": [
+      {
+        "name": "Move",
+        "desc": "The Devourer moves up to its speed."
+      },
+      {
+        "name": "Obsidian Shard",
+        "attack": {
+            "type": "Ranged",
+            "tohit": "+15",
+            "range": "60/120 ft.",
+            "target": "one target",
+            "dmg1": "2d6+9",
+            "type1": "piercing"
+        },
+        "desc": "The Devourer launches a shard of obsidian. Hit: 16 (2d6 + 9) piercing damage."
+      },
+      {
+        "name": "Devouring Maw (Costs 2 Actions)",
+        "desc": "The Devourer attempts to swallow one Medium or smaller creature grappled by it. The creature must succeed on a DC 19 Dexterity saving throw or be swallowed. A swallowed creature is blinded and restrained, has total cover against attacks and other effects outside the Devourer, and it takes 21 (6d6) acid damage at the start of each of the Devourer's turns. If the Devourer takes 30 damage or more on a single turn from a creature inside it, the Devourer must succeed on a DC 21 Constitution saving throw at the end of that turn or regurgitate all swallowed creatures, which fall prone in a space within 10 feet of the Devourer. If the Devourer dies, a swallowed creature is no longer restrained by it and can escape from the corpse by using 15 feet of movement, exiting prone."
+      }
+    ]
+  },
+  "mythic_actions": {
+    "desc": "When the Obsidian Devourer reaches 0 hit points, its obsidian shell shatters, and it emerges anew with full hit points, unleashing its mythic power. On its turn, it can use one of the following mythic actions.",
+    "actions": [
+      {
+        "name": "Gravity Well (Costs 1 Mythic Action)",
+        "desc": "The Devourer intensifies its gravitational pull. Each creature of its choice within 30 feet of it must succeed on a DC 21 Strength saving throw or be pulled up to 15 feet directly toward the Devourer and be knocked prone."
+      },
+      {
+        "name": "Entropic Burst (Costs 2 Mythic Actions)",
+        "desc": "The Devourer releases a burst of entropic energy. Each creature within 20 feet of it must make a DC 21 Constitution saving throw, taking 35 (10d6) necrotic damage on a failed save, or half as much damage on a successful one. Creatures that fail this save cannot regain hit points until the end of the Devourer's next turn."
+      }
+    ]
+  }
+} 
