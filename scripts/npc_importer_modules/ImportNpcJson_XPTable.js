@@ -1,4 +1,4 @@
-var ImportNpcJson_XPTable = {
+const ImportNpcJson_XPTable = {
     table: {
         // CR: [XP, ProfBonus, AC, HP_Min, HP_Max, AttackBonus, DmgRound_Min, DmgRound_Max, SaveDC]
         "0":    [10,    2, 13, 1,   6,   3, 0,  1,  13],

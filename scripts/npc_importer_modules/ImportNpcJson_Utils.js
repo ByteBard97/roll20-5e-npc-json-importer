@@ -1,7 +1,7 @@
 // ImportNpcJson_Utils.js
 // Establishes the ImportJSON_Utils namespace for helper functions and constants.
 
-var ImportJSON_Utils = {
+const ImportJSON_Utils = {
     DEBUG: true, // Set false to reduce console noise
     DEFAULT_CREATOR: "",
 
@@ -31,7 +31,7 @@ var ImportJSON_Utils = {
     dbg: function(...a) {
       // Use global_log if available, otherwise fallback to console.log for broader compatibility if used outside Roll20
       const logger = typeof ImportJSON_Utils.global_log === 'function' ? ImportJSON_Utils.global_log : console.log;
-      return this.DEBUG &&
+      return ImportJSON_Utils.DEBUG &&
       logger(
         `[ImportJSON] ${a.map((v) => (typeof v === "string" ? v : JSON.stringify(v))).join(" ")}`,
       );

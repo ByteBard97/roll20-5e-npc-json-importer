@@ -1,5 +1,5 @@
 // scripts/ImportNpcJson_SheetInitializer.js
-var ImportNpcJson_SheetInitializer = {
+const ImportNpcJson_SheetInitializer = {
     initialize: function(charId, jsonData, w, findObjs_func, setAttributeDirect_func) {
         // The setAttributeDirect_func passed here is the adapter from Core.js (setAttributeDirectForInit)
         // or later, it will be ImportJSON_Utils.setAttributeDirect directly if jsonData and w are also passed to it.

@@ -1,5 +1,5 @@
 // scripts/ImportNpcJson_RepeatingSections.js
-var ImportNpcJson_RepeatingSections = {
+const ImportNpcJson_RepeatingSections = {
     processAll: function(charId, d, utils) {
         // utils is expected to be an object containing all necessary utility functions:
         // { w, findObjs, createObj, setAttributeDirect, createLinkedAbility, genRowID, dbg, parseBonus, getDice, calculateAverage }

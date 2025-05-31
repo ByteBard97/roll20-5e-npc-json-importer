@@ -1,6 +1,6 @@
 // scripts/ImportNpcJson_Builder.js
-var ImportNpcJson_Builder = {
-    buildNpc: function(rawJson, w, tokenId) {
+const ImportNpcJson_Builder = {
+    buildNpc: function(rawJson, w, tokenId, scriptVersion) {
         const startTime = Date.now(); // Record start time
         // This function now orchestrates the entire build process.
         // It relies on ImportJSON_Utils for global functions and constants.
@@ -168,7 +168,7 @@ var ImportNpcJson_Builder = {
                 }
 
                 w(
-                    `✅ Successfully imported <b>${d.name}</b> (ID: ${char.id}) in ${duration}ms. Check attacks/options. Add Lair/Spells manually. (v${IMPORT_NPC_JSON_BUNDLE_VERSION})`,
+                    `✅ Successfully imported <b>${d.name}</b> (ID: ${char.id}) in ${duration}ms. Check attacks/options. Add Lair/Spells manually. (v${scriptVersion})`,
                 );
             }, 1000); // Original timeout duration
         } catch (e) {

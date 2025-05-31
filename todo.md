@@ -69,6 +69,8 @@
 - Add `npc_options_flag: "1"` automatically if legendary/mythic/lair actions present.
 - Enhance script error handling and input flexibility:
    - For other types of malformed JSON (e.g., unexpected data types that cannot be easily normalized): Instead of crashing, catch the error, log a descriptive message to the Roll20 API console (mentioning the NPC name and the problematic field), and attempt to continue processing the rest of the NPC's data where possible, or gracefully skip the problematic section.
+- **Implement Revealing Module Pattern:** Refactor the script to use a closure/scope (like the Revealing Module Pattern) to prevent namespace collisions with other Roll20 API scripts.
+- **Move Chat Listener to `on('ready')`:** Relocate the chat event listener registration (`on('chat:message', ...`) to within an `on('ready', ...)` event handler to improve compatibility with metascripts and ensure the script is fully initialized before processing commands.
 
 - [ ] **Improve Re-import Logic for Existing Characters:**
     - **Issue:** Importing into an existing character sheet (via an existing handout) can sometimes lead to warnings (e.g., erroneous "Lair action data present") or incorrect behavior if the sheet has legacy/stale attributes from previous import attempts. This was observed with the "boss_monster" handout causing issues that a new handout with the exact same JSON did not.

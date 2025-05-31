@@ -1,5 +1,5 @@
 // scripts/ImportNpcJson_CharacterSetup.js
-var ImportNpcJson_CharacterSetup = {
+const ImportNpcJson_CharacterSetup = {
     createCharacter: function(d, utils) {
         // utils is expected to contain { createObj, findObjs, dbg, DEFAULT_CREATOR }
         const { createObj, findObjs, dbg, DEFAULT_CREATOR } = utils;

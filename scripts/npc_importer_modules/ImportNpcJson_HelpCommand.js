@@ -1,5 +1,5 @@
 /* Source: npc_importer_modules/ImportNpcJson_HelpCommand.js */
-var ImportNpcJson_HelpCommand = {
+const ImportNpcJson_HelpCommand = {
     handleHelp: function(msg, whisper) {
         if (msg.content.trim().toLowerCase() === "!5enpcimport help") {
             const helpText = '📖 **5e NPC JSON Importer Help**<br><br>' +

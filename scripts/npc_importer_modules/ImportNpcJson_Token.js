@@ -1,4 +1,4 @@
-var ImportNpcJson_Token = {
+const ImportNpcJson_Token = {
     finaliseToken: function(token, charObj, npcData) {
         if (!token || !charObj) {
             ImportJSON_Utils.dbg("finaliseToken: Token or Character object is missing.");

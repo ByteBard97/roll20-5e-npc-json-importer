@@ -1,5 +1,5 @@
 // scripts/ImportNpcJson_ScalarAttributes.js
-var ImportNpcJson_ScalarAttributes = {
+const ImportNpcJson_ScalarAttributes = {
     set: function(charId, d, w, findObjs, createObj, setAttributeDirect, dbg) {
         dbg("Setting scalar attributes via direct API calls...");
 
