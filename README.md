@@ -108,7 +108,7 @@ For most users, this is the only method you need:
 6.  **Name the Script (Optional but Recommended):** You can give it a name like "5e_NPC_JSON_Importer" in the field above the code editor.
 7.  **Save Script:** Click the "Save Script" button. The API sandbox will restart.
 
-The script should now be active in your game. You'll see a confirmation message in the API console (accessible from the script editor page) and a whisper to the GM in chat if it loads correctly (e.g., `ImportNPC Bundle vX.X.X loaded and ready.`).
+The script should now be active in your game. You'll see a confirmation message in the API console (accessible from the script editor page) and a whisper to the GM in chat if it loads correctly (e.g., `-=> ImportNpcJson v1.0.2 <=- ready. Core loaded. Utils should be loaded.` or in chat: `ImportNpcJson v1.0.2 loaded and ready.`).
 
 **Important:** You do **not** need to install any other files from this repository (like those in `scripts/util/` or `scripts/npc_importer_modules/`) for the importer to work. The `5e_NPC_JSON_Importer.js` file is self-contained.
 
@@ -236,6 +236,7 @@ While `JSON_STRUCTURE.md` contains the full details, here are a few of the most 
 ## Acknowledgements
 
 *   A big thank you to **Zanthox** ([@Zanthox](https://github.com/Zanthox)) for the original [Roll205eSheetImport](https://github.com/Zanthox/Roll205eSheetImport) script (also discussed on the [Roll20 Forums](https://app.roll20.net/forum/post/10800206/script-importstats-take-monster-stat-blocks-and-import-them-into-roll20-5e-npc-sheets)), which served as a foundational inspiration and a valuable learning resource for this project. Many of the initial concepts and approaches for parsing complex statblocks were derived from their pioneering work.
+*   Additionally, special thanks to **timmaugh** (Roll20 Forum Champion, API Scripter) for their invaluable suggestions on improving script scoping (using IIFE/Revealing Module Pattern) and standardizing `on('ready')` event handling. These contributions significantly enhanced the script's robustness and adherence to Roll20 API development best practices (as of v1.0.2).
 
 ## License
 
