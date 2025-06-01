@@ -41,24 +41,93 @@ const ImportJSON_Utils = {
 
     decode: function(s) {
       let txt = (s || "").toString();
-      // ❶ first, undo any URI encoding (only tokens need it,
-      //    but calling it twice on handout text is harmless)
-      try { txt = decodeURIComponent(txt); } catch (_) {}
-
-      // ❷ now your previous HTML-entity / tag stripper
-      // Simplified the regex slightly and ensured it operates on the potentially decoded `txt`
-      txt = txt.replace(/&lt;/g, '<')
+      
+      // ❶ Check if it's base64 encoded (starts with our marker)
+      if (txt.startsWith('B64:')) {
+          try {
+              // Remove marker and decode base64
+              const base64Content = txt.substring(4);
+              txt = atob(base64Content);
+              ImportJSON_Utils.dbg(`Base64 decode: Success`);
+              return txt; // Base64 content should be clean JSON, no need for further processing
+          } catch (e) {
+              ImportJSON_Utils.dbg(`Base64 decode failed: ${e.message}. Continuing with regular decode...`);
+              // If base64 fails, continue with regular decoding
+          }
+      }
+      
+      // ❷ Handle URL encoding with a more robust approach
+      // Try full decode first
+      try {
+          txt = decodeURIComponent(txt);
+          ImportJSON_Utils.dbg(`Full URL decode: Success`);
+      } catch (e) {
+          ImportJSON_Utils.dbg(`Full URL decode failed: ${e.message}. Attempting manual decode...`);
+          
+          // Manual decode of common URL encoded characters
+          txt = txt.replace(/%3A/g, ':')
+                   .replace(/%2C/g, ',')
+                   .replace(/%20/g, ' ')
+                   .replace(/%22/g, '"')
+                   .replace(/%7B/g, '{')
+                   .replace(/%7D/g, '}')
+                   .replace(/%5B/g, '[')
+                   .replace(/%5D/g, ']')
+                   .replace(/%3C/g, '<')
+                   .replace(/%3E/g, '>')
+                   .replace(/%26/g, '&')
+                   .replace(/%3D/g, '=')
+                   .replace(/%2F/g, '/')
+                   .replace(/%5C/g, '\\')
+                   .replace(/%0A/g, '\n')
+                   .replace(/%0D/g, '\r')
+                   .replace(/%09/g, '\t');
+          
+          // Then try a more general pattern for any remaining encoded characters
+          txt = txt.replace(/%([0-9A-Fa-f]{2})/g, function(match, hex) {
+              try {
+                  return String.fromCharCode(parseInt(hex, 16));
+              } catch (e) {
+                  return match;
+              }
+          });
+          
+          ImportJSON_Utils.dbg(`Manual URL decode complete`);
+      }
+      
+      // ❸ Handle HTML entities BEFORE stripping tags
+      txt = txt.replace(/&nbsp;/g, ' ')
+               .replace(/&lt;/g, '<')
                .replace(/&gt;/g, '>')
-               .replace(/<[^>]*?>/g, '') // To strip any HTML tags that might be present after decoding
                .replace(/&quot;/g, '"')
                .replace(/&apos;/g, "'")
-               .replace(/&amp;/g, '&')
-               .replace(/&nbsp;/g, ' ');
-      // The original complex regex for entities like &#x...; and &#...; might still be needed if those appear
-      // For now, focusing on the common ones and the URI decode part.
-      // If complex entities are still an issue, we can re-integrate the more complex regex part carefully.
+               .replace(/&#39;/g, "'")
+               .replace(/&amp;/g, '&');
+      
+      // ❹ Strip HTML tags
+      txt = txt.replace(/<[^>]*?>/g, '');
+      
+      // ❺ Clean up any remaining whitespace issues
+      txt = txt.replace(/\s+/g, ' ').trim();
+      
+      // ❻ Additional cleanup for common Roll20 artifacts
+      // Remove any leading/trailing quotes that might have been added
+      if (txt.startsWith('"') && txt.endsWith('"') && txt.length > 2) {
+          try {
+              // Check if it's a stringified JSON
+              const unquoted = JSON.parse(txt);
+              if (typeof unquoted === 'string') {
+                  txt = unquoted;
+              }
+          } catch (e) {
+              // Not stringified JSON, leave as is
+          }
+      }
+      
+      ImportJSON_Utils.dbg(`Decode result (first 200 chars): ${txt.substring(0, 200)}${txt.length > 200 ? '...' : ''}`);
+      
       return txt;
-    },
+  },
 
     parseBonus: function(bonusStr) {
       if (typeof bonusStr === "number") return bonusStr;

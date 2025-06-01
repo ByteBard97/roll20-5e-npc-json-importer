@@ -1,4 +1,4 @@
-// 5e NPC JSON Importer - Generated Sat May 31 01:57:11 PM EDT 2025
+// 5e NPC JSON Importer - Generated Sun Jun  1 07:10:50 PM EDT 2025
 // Main script file. Contains all necessary modules.
 // Load Order:
 (() => { // Start of IIFE wrapper for the entire bundle
@@ -48,24 +48,93 @@ const ImportJSON_Utils = {
 
     decode: function(s) {
       let txt = (s || "").toString();
-      // ❶ first, undo any URI encoding (only tokens need it,
-      //    but calling it twice on handout text is harmless)
-      try { txt = decodeURIComponent(txt); } catch (_) {}
-
-      // ❷ now your previous HTML-entity / tag stripper
-      // Simplified the regex slightly and ensured it operates on the potentially decoded `txt`
-      txt = txt.replace(/&lt;/g, '<')
+      
+      // ❶ Check if it's base64 encoded (starts with our marker)
+      if (txt.startsWith('B64:')) {
+          try {
+              // Remove marker and decode base64
+              const base64Content = txt.substring(4);
+              txt = atob(base64Content);
+              ImportJSON_Utils.dbg(`Base64 decode: Success`);
+              return txt; // Base64 content should be clean JSON, no need for further processing
+          } catch (e) {
+              ImportJSON_Utils.dbg(`Base64 decode failed: ${e.message}. Continuing with regular decode...`);
+              // If base64 fails, continue with regular decoding
+          }
+      }
+      
+      // ❷ Handle URL encoding with a more robust approach
+      // Try full decode first
+      try {
+          txt = decodeURIComponent(txt);
+          ImportJSON_Utils.dbg(`Full URL decode: Success`);
+      } catch (e) {
+          ImportJSON_Utils.dbg(`Full URL decode failed: ${e.message}. Attempting manual decode...`);
+          
+          // Manual decode of common URL encoded characters
+          txt = txt.replace(/%3A/g, ':')
+                   .replace(/%2C/g, ',')
+                   .replace(/%20/g, ' ')
+                   .replace(/%22/g, '"')
+                   .replace(/%7B/g, '{')
+                   .replace(/%7D/g, '}')
+                   .replace(/%5B/g, '[')
+                   .replace(/%5D/g, ']')
+                   .replace(/%3C/g, '<')
+                   .replace(/%3E/g, '>')
+                   .replace(/%26/g, '&')
+                   .replace(/%3D/g, '=')
+                   .replace(/%2F/g, '/')
+                   .replace(/%5C/g, '\\')
+                   .replace(/%0A/g, '\n')
+                   .replace(/%0D/g, '\r')
+                   .replace(/%09/g, '\t');
+          
+          // Then try a more general pattern for any remaining encoded characters
+          txt = txt.replace(/%([0-9A-Fa-f]{2})/g, function(match, hex) {
+              try {
+                  return String.fromCharCode(parseInt(hex, 16));
+              } catch (e) {
+                  return match;
+              }
+          });
+          
+          ImportJSON_Utils.dbg(`Manual URL decode complete`);
+      }
+      
+      // ❸ Handle HTML entities BEFORE stripping tags
+      txt = txt.replace(/&nbsp;/g, ' ')
+               .replace(/&lt;/g, '<')
                .replace(/&gt;/g, '>')
-               .replace(/<[^>]*?>/g, '') // To strip any HTML tags that might be present after decoding
                .replace(/&quot;/g, '"')
                .replace(/&apos;/g, "'")
-               .replace(/&amp;/g, '&')
-               .replace(/&nbsp;/g, ' ');
-      // The original complex regex for entities like &#x...; and &#...; might still be needed if those appear
-      // For now, focusing on the common ones and the URI decode part.
-      // If complex entities are still an issue, we can re-integrate the more complex regex part carefully.
+               .replace(/&#39;/g, "'")
+               .replace(/&amp;/g, '&');
+      
+      // ❹ Strip HTML tags
+      txt = txt.replace(/<[^>]*?>/g, '');
+      
+      // ❺ Clean up any remaining whitespace issues
+      txt = txt.replace(/\s+/g, ' ').trim();
+      
+      // ❻ Additional cleanup for common Roll20 artifacts
+      // Remove any leading/trailing quotes that might have been added
+      if (txt.startsWith('"') && txt.endsWith('"') && txt.length > 2) {
+          try {
+              // Check if it's a stringified JSON
+              const unquoted = JSON.parse(txt);
+              if (typeof unquoted === 'string') {
+                  txt = unquoted;
+              }
+          } catch (e) {
+              // Not stringified JSON, leave as is
+          }
+      }
+      
+      ImportJSON_Utils.dbg(`Decode result (first 200 chars): ${txt.substring(0, 200)}${txt.length > 200 ? '...' : ''}`);
+      
       return txt;
-    },
+  },
 
     parseBonus: function(bonusStr) {
       if (typeof bonusStr === "number") return bonusStr;
@@ -1377,7 +1446,7 @@ ImportJSON_Utils.dbg("ImportNpcJson_Builder.js populated and loaded.");
 
 const ImportNpcJson = (() => { // START REVEALING MODULE PATTERN
     const scriptName = 'ImportNpcJson';
-    const version = "1.0.2";
+    const version = "1.0.3"
     // This file now primarily handles chat command listening, preprocessing, and global setup.
     // Main build logic is in ImportNpcJson_Builder.js
     // Depends on: 
@@ -1405,16 +1474,70 @@ const ImportNpcJson = (() => { // START REVEALING MODULE PATTERN
 
     function handleChatMessage(msg) {
         if (msg.playerid === 'API') return;                 // Prevent self-echo loops
-        if (msg.type !== 'api' || !msg.content.startsWith('!5enpcimport')) return;
-
+        
+        // Modified check to allow both !5enpcimport and !5enpctest
+        if (msg.type !== 'api' || (!msg.content.startsWith('!5enpcimport') && !msg.content.startsWith('!5enpctest'))) return;
+    
         const who = msg.who.replace(' (GM)', '');
-        // Use a consistent whisper function name, e.g., 'whisper' or 'replyToSender'
         const whisper = (t) => ImportJSON_Utils.global_sendChat('ImportNPC', `/w "${who}" ${t}`);
-
-        // Handle help command first
+    
+        // Test command can now go anywhere since it passes the initial check
+        if (msg.content === "!5enpctest" && msg.selected && msg.selected.length > 0) {
+            msg.selected.forEach(selected => {
+                if (selected._type === 'graphic') {
+                    const token = ImportJSON_Utils.global_getObj('graphic', selected._id);
+                    if (token) {
+                        const raw = token.get('gmnotes');
+                        whisper(`=== Token GM Notes Debug ===`);
+                        whisper(`Raw length: ${raw ? raw.length : 'null/empty'}`);
+                        whisper(`Raw (first 200): ${raw ? raw.substring(0, 200) : 'empty'}`);
+                        
+                        // Check what type of encoding we have
+                        if (raw) {
+                            const hasUrlEncoding = raw.includes('%3C') || raw.includes('%3E') || raw.includes('%7B');
+                            const hasHtmlEntities = raw.includes('&lt;') || raw.includes('&gt;') || raw.includes('&nbsp;');
+                            const hasHtmlTags = raw.includes('<p>') || raw.includes('</p>');
+                            
+                            whisper(`Has URL encoding: ${hasUrlEncoding}`);
+                            whisper(`Has HTML entities: ${hasHtmlEntities}`);
+                            whisper(`Has HTML tags: ${hasHtmlTags}`);
+                        }
+                        
+                        const decoded = ImportJSON_Utils.decode(raw);
+                        whisper(`Decoded length: ${decoded ? decoded.length : 'empty'}`);
+                        whisper(`Decoded (first 200): ${decoded ? decoded.substring(0, 200) : 'empty'}`);
+                        
+                        // Try to find JSON structure
+                        if (decoded) {
+                            const jsonStart = decoded.indexOf('{');
+                            const jsonEnd = decoded.lastIndexOf('}');
+                            whisper(`JSON start index: ${jsonStart}`);
+                            whisper(`JSON end index: ${jsonEnd}`);
+                            
+                            if (jsonStart !== -1 && jsonEnd !== -1) {
+                                const extracted = decoded.substring(jsonStart, jsonEnd + 1);
+                                whisper(`Extracted JSON length: ${extracted.length}`);
+                                whisper(`Extracted JSON (first 100): ${extracted.substring(0, 100)}...`);
+                                
+                                // Try to parse it
+                                try {
+                                    const parsed = JSON.parse(extracted);
+                                    whisper(`✅ JSON parse SUCCESS! Found creature: ${parsed.name || 'unnamed'}`);
+                                } catch (e) {
+                                    whisper(`❌ JSON parse failed: ${e.message}`);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            return;
+        }
+    
+        // Handle help command
         if (ImportNpcJson_HelpCommand && typeof ImportNpcJson_HelpCommand.handleHelp === 'function') {
             if (ImportNpcJson_HelpCommand.handleHelp(msg, whisper)) {
-                return; // Help command was handled, stop further processing
+                return;
             }
         }
 
@@ -1461,48 +1584,80 @@ const ImportNpcJson = (() => { // START REVEALING MODULE PATTERN
         // Token-based import
         // Example: !5enpcimport (with a token selected)
         // This condition should be after inline and handout checks, but before the generic error.
+        // Token-based import section (replace the existing section in handleChatMessage)
         if (msg.selected && msg.selected.length > 0 && msg.content.trim() === "!5enpcimport") {
             ImportJSON_Utils.dbg("Processing token import trigger...");
             let processedToken = false;
+            
             msg.selected.forEach(selected => {
                 if (selected._type === 'graphic') {
                     const token = ImportJSON_Utils.global_getObj('graphic', selected._id);
                     if (token) {
                         const gmnotes = token.get('gmnotes');
-                        const rawGmnotesForLog = gmnotes ? gmnotes.substring(0, 100) + (gmnotes.length > 100 ? '...' : '') : 'null_or_empty'; // Avoid overly long logs
-                        ImportJSON_Utils.dbg(`Raw GM notes from token ${token.id} (first 100 chars): ${rawGmnotesForLog}`);
-
-                        let cleanedGmnotes = gmnotes && gmnotes !== "null" ? ImportJSON_Utils.decode(gmnotes).trim() : "";
-                        ImportJSON_Utils.dbg(`Cleaned GM notes for token ${token.id} (after decode & trim): ${cleanedGmnotes ? cleanedGmnotes.substring(0,100) + (cleanedGmnotes.length > 100 ? '...' : '') : 'empty'}`);
-
-                        // Attempt to handle potential double-stringified JSON from GM Notes
-                        if (cleanedGmnotes.startsWith('"') && cleanedGmnotes.endsWith('"')) {
-                            try {
-                                const innerJson = JSON.parse(cleanedGmnotes); // This would parse the outer string layer
-                                if (typeof innerJson === 'string') { // Check if the result of the first parse is still a string
-                                   ImportJSON_Utils.dbg(`GM notes appeared to be double-stringified. Attempting to parse inner content.`);
-                                   cleanedGmnotes = innerJson; // Use the inner string for the actual JSON.parse in the builder
-                                }
-                            } catch (e) {
-                                ImportJSON_Utils.dbg(`Tried to parse presumed double-stringified JSON but failed: ${e.message}`);
-                                // If this fails, proceed with cleanedGmnotes as is, Builder will likely fail and report
-                            }
+                        
+                        // Enhanced debugging
+                        ImportJSON_Utils.dbg(`Raw GM notes type: ${typeof gmnotes}`);
+                        ImportJSON_Utils.dbg(`Raw GM notes length: ${gmnotes ? gmnotes.length : 'null/undefined'}`);
+                        ImportJSON_Utils.dbg(`Raw GM notes (first 200 chars): ${gmnotes ? gmnotes.substring(0, 200) + (gmnotes.length > 200 ? '...' : '') : 'null_or_empty'}`);
+                        
+                        // Check for common encoding patterns
+                        if (gmnotes && gmnotes.includes('%3C') && gmnotes.includes('%3E')) {
+                            ImportJSON_Utils.dbg(`Detected URL encoding in GM notes`);
                         }
-
+                        if (gmnotes && gmnotes.includes('&lt;') && gmnotes.includes('&gt;')) {
+                            ImportJSON_Utils.dbg(`Detected HTML entities in GM notes`);
+                        }
+                        
+                        let cleanedGmnotes = gmnotes && gmnotes !== "null" ? ImportJSON_Utils.decode(gmnotes).trim() : "";
+                        ImportJSON_Utils.dbg(`After decode - length: ${cleanedGmnotes.length}`);
+                        ImportJSON_Utils.dbg(`After decode - first 200 chars: ${cleanedGmnotes.substring(0, 200)}${cleanedGmnotes.length > 200 ? '...' : ''}`);
+                        
+                        // Try to extract JSON from the cleaned notes
                         if (cleanedGmnotes) {
-                            ImportJSON_Utils.dbg(`Final GM notes string being passed to builder for token ${token.id} (first 100 chars): ${cleanedGmnotes ? cleanedGmnotes.substring(0,100) + (cleanedGmnotes.length > 100 ? '...' : '') : 'empty'}`);
+                            // Look for JSON structure
+                            const jsonStart = cleanedGmnotes.indexOf('{');
+                            const jsonEnd = cleanedGmnotes.lastIndexOf('}');
+                            
+                            if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+                                const extractedJson = cleanedGmnotes.substring(jsonStart, jsonEnd + 1);
+                                ImportJSON_Utils.dbg(`Extracted JSON candidate - length: ${extractedJson.length}`);
+                                ImportJSON_Utils.dbg(`Extracted JSON candidate - first 100 chars: ${extractedJson.substring(0, 100)}...`);
+                                
+                                // Validate it's likely JSON
+                                if (extractedJson.includes('"name"') || extractedJson.includes("'name'")) {
+                                    cleanedGmnotes = extractedJson;
+                                    ImportJSON_Utils.dbg(`Using extracted JSON content`);
+                                }
+                            }
+                            
+                            // Handle potential double-stringified JSON
+                            if (cleanedGmnotes.startsWith('"') && cleanedGmnotes.endsWith('"')) {
+                                try {
+                                    const innerJson = JSON.parse(cleanedGmnotes);
+                                    if (typeof innerJson === 'string') {
+                                        ImportJSON_Utils.dbg(`GM notes appeared to be double-stringified. Using inner content.`);
+                                        cleanedGmnotes = innerJson;
+                                    }
+                                } catch (e) {
+                                    ImportJSON_Utils.dbg(`Double-stringify check failed: ${e.message}`);
+                                }
+                            }
+                            
+                            ImportJSON_Utils.dbg(`Final content being passed to builder - length: ${cleanedGmnotes.length}`);
+                            ImportJSON_Utils.dbg(`Final content preview: ${cleanedGmnotes.substring(0, 50)}...`);
+                            
                             ImportNpcJson_Builder.buildNpc(cleanedGmnotes, whisper, token.id, version);
                             processedToken = true;
-                            return; // Exits forEach early, processing only the first valid token
+                            return; // Exits forEach early
                         } else {
-                            ImportJSON_Utils.dbg(`No GM notes content in selected token ID ${token.id}.`);
+                            ImportJSON_Utils.dbg(`No GM notes content after cleaning for token ID ${token.id}.`);
                         }
                     }
                 }
             });
-
+            
             if (processedToken) {
-                return; // At least one token was processed
+                return;
             } else {
                 return whisper('ℹ️ No JSON data found in the GM Notes of the selected token(s).');
             }

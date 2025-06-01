@@ -10,6 +10,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future changes
 
+## [1.0.3] - 2025-06-01 
+
+### Added
+- Added `!5enpctest` chat command to debug token GM notes content, showing raw, decoded, and parsed JSON status.
+- Implemented Base64 decoding for GM notes content prefixed with `B64:`.
+
+### Changed
+- **GM Notes Parsing Overhaul (Token Import):**
+    - Significantly improved the reliability of parsing JSON from token GM notes.
+    - Enhanced the `ImportJSON_Utils.decode()` function with a multi-stage decoding process:
+        1.  Checks for and decodes Base64 encoded content (if prefixed with `B64:`).
+        2.  Robustly handles URL-encoded strings, including a manual fallback for common characters if `decodeURIComponent` fails.
+        3.  Decodes HTML entities (e.g., `&lt;`, `&gt;`, `&nbsp;`, `&quot;`, `&apos;`, `&amp;`).
+        4.  Strips HTML tags.
+        5.  Normalizes whitespace and trims the result.
+        6.  Includes additional cleanup for potential Roll20 artifacts, such as attempting to unwrap doubly stringified JSON.
+    - Added more detailed debug logging throughout the decoding and import process for token GM notes to help diagnose issues.
+    - The script now attempts to intelligently extract a valid JSON object from the cleaned GM notes string, even if there's surrounding non-JSON text, by looking for the first `{` and last `}`.
+
+### Fixed
+- Addressed issues where various encoding types (URL encoding, HTML entities, extraneous whitespace, HTML tags) in token GM notes would prevent successful JSON parsing.
+- Mitigated problems with "double-stringified" JSON sometimes present in GM notes.
+
 ## [1.0.2] - 2025-05-31
 
 ### Changed
