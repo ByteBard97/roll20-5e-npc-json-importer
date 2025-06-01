@@ -43,6 +43,26 @@
     - **Issue:** Script execution can take 5-10 seconds, partly due to a 1-second `setTimeout` in `ImportNpcJson_Builder.js`.
     - **Next Step:** Investigate if the `setTimeout` can be safely reduced or replaced with a more event-driven approach. Profile other parts of the script if significant delays persist.
 
+- [ ] **Automatic Spell Population via D&D 5e API Integration:**
+    - **Goal:** Integrate with the D&D 5e API (https://www.dnd5eapi.co/) to automatically populate complete spell details for SRD spells when only spell names are provided in JSON.
+    - **JSON Input Enhancement:** Support a `spells` field in the NPC JSON structure:
+      ```json
+      "spells": {
+        "cantrips": ["mage hand", "minor illusion", "prestidigitation"],
+        "1": ["detect magic", "magic missile", "shield"],
+        "3": ["fireball", "counterspell"]
+      }
+      ```
+    - **Implementation Details:**
+      - Create new module `ImportNpcJson_Spells.js` to handle API integration.
+      - Use `fetch()` API to retrieve spell data from `https://www.dnd5eapi.co/api/spells/?name={spellName}`.
+      - Populate `repeating_spell-` attributes with complete spell details (name, level, school, casting time, range, components, duration, description).
+      - Implement fallback system: API first, then spell name only if API fails.
+      - Add caching mechanism for frequently used spells to improve performance.
+      - Handle async operations properly within Roll20's API context.
+    - **Benefits:** Dramatically reduces manual spell entry for NPCs, automatically populates all SRD spell details while maintaining legal compliance.
+    - **Scope:** SRD spells only (319+ spells covering core 0-9 level spells). Non-SRD spells from purchased books would still populate as name-only entries for manual completion.
+
 ## Project & Documentation
 
 - [ ] **README.md Enhancements:**

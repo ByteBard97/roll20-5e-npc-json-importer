@@ -63,6 +63,7 @@ To develop and refine a Roll20 API script (`5e_NPC_JSON_Importer.js`) that impor
             *   "Automatically Set `npc_options-flag`" (if still relevant).
             *   "Refinements & Nice-to-Haves" (e.g., enhanced error handling/messaging to user).
             *   "Re-import Logic for Existing Characters" (clarify behavior, improve if needed).
+            *   **"Automatic Spell Population via D&D 5e API Integration"** (future major feature for SRD spell automation).
         *   **Documentation:**
             *   Final review of `README.md` for any further enhancements or clarifications.
             *   Consider adding a troubleshooting tip to the README about re-importing into a new handout/token if issues occur (as noted in `todo.md`).

@@ -5,7 +5,7 @@ import sys # Import sys to read command line arguments
 def convert_json_to_single_line_chat_command(input_filepath, output_filename_suffix="_chat.txt"):
     """
     Reads a JSON file, minifies it into a single line, 
-    prepends '!importjson ', and saves it to a new .txt file 
+    prepends '!5enpcimport ', and saves it to a new .txt file 
     in the same directory as the input file.
     Also prints the command to the console.
     """
@@ -14,7 +14,7 @@ def convert_json_to_single_line_chat_command(input_filepath, output_filename_suf
             data = json.load(f) 
         
         minified_json_string = json.dumps(data, separators=(',', ':'))
-        chat_command = f"!importjson {minified_json_string}"
+        chat_command = f"!5enpcimport {minified_json_string}"
         
         # Create output filename based on input filename
         base_name = os.path.splitext(os.path.basename(input_filepath))[0]

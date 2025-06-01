@@ -44,6 +44,7 @@ Manually entering complex NPC statblocks into Roll20 can be time-consuming and e
 *   Content creators looking to share NPCs in a portable format.
 *   Anyone wanting to quickly populate their Roll20 game with monsters from various sources (assuming you convert them to the script's JSON format).
 *   Game Masters leveraging AI (like LLMs) for rapid NPC generation, with future potential for streamlined workflows via MCP server integration.
+*   **Future:** Automatic spell population for spellcaster NPCs via integration with the [D&D 5e API](https://www.dnd5eapi.co/), which will automatically fetch complete spell details for all SRD spells, dramatically reducing manual entry time while maintaining legal compliance.
 
 ## Why Use This Script?
 
@@ -68,6 +69,7 @@ Manually entering complex NPC statblocks into Roll20 can be time-consuming and e
     *   Defines spell slots per level using a `spell_slots` object (e.g., `"spell_slots": { "1": 4, "2": 3 }`).
     *   Sets the caster level.
     *   **Important:** The script currently **does not** populate individual spells into the character sheet's spellbook. Spells known/prepared should be listed in the description of a "Spellcasting" trait (see `examples/lich.json`). Users will need to manually add spells to the sheet after import.
+    *   **Planned Enhancement:** Future versions will integrate with the [D&D 5e API](https://www.dnd5eapi.co/) to automatically populate SRD spells by name, supporting a simplified `spells` JSON field (e.g., `"spells": {"cantrips": ["mage hand", "prestidigitation"], "1": ["magic missile", "shield"]}`). This will dramatically reduce manual spell entry while maintaining legal compliance with OGL content.
     *   *Note: Automatic calculation of spell attack bonus and save DC may require a manual sheet worker nudge (see [Troubleshooting](#troubleshooting--known-issues)).*
 *   **Mythic Actions:** Supports the "Mythic Actions" checkbox, the associated description field, and creates individual mythic actions with their names, descriptions, and optional costs.
 *   **Biography & Information:** Populates the "Bio & Info" tab on the character sheet (via the `bio` field in JSON).
