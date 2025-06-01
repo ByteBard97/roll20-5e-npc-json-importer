@@ -26,6 +26,7 @@ This script aims to simplify and automate the process of creating NPC entries in
 - [Acknowledgements](#acknowledgements)
 - [Contributing (Future)](#contributing-future)
 - [License](#license)
+- [Compatibility](#compatibility)
 
 ## Quick Start (3 Easy Steps)
 
@@ -77,6 +78,16 @@ Manually entering complex NPC statblocks into Roll20 can be time-consuming and e
     *   **Token Linking:** Links the selected token to the newly created/updated character sheet (`represents` field and token `name`).
     *   **Bar Updates:** Updates the token's Bar 1 (HP) and Bar 2 (AC) based on the imported JSON data.
     *   **Default Token Assignment:** Sets the configured token as the default token for the character sheet, making it appear in the journal and when dragged to the VTT.
+
+## Compatibility
+
+**Important:** This script is specifically designed for and tested with the **"D&D 5e by Roll20"** character sheet (the classic/legacy 5e sheet). 
+
+**2024 Character Sheet:** At this time, compatibility with the newer "D&D 5e (2024)" character sheet has not been tested or verified. The script may not function correctly with the 2024 sheet due to potential differences in attribute names, sheet workers, and data structure. 
+
+If you're using the 2024 character sheet and encounter issues, please consider switching to the classic "D&D 5e by Roll20" sheet for your NPCs, or check back for future updates that may add 2024 sheet support.
+
+To verify which character sheet you're using: Go to Game Settings → Character Sheet Template and look for "D&D 5e by Roll20" (classic) vs "D&D 5e (2024)" (newer).
 
 ## Installation
 
