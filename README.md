@@ -87,7 +87,7 @@ Manually entering complex NPC statblocks into Roll20 can be time-consuming and e
 
 If you're using the 2024 character sheet and encounter issues, please consider switching to the classic "D&D 5e by Roll20" sheet for your NPCs, or check back for future updates that may add 2024 sheet support.
 
-To verify which character sheet you're using: Go to Game Settings → Character Sheet Template and look for "D&D 5e by Roll20" (classic) vs "D&D 5e (2024)" (newer).
+To verify which character sheet you're using: Go to Game Settings → Character Sheet Template and look for "D&D 5e 2014 by Roll20" (classic) vs "D&D 5e 2024 by Roll20" (newer).
 
 ## Installation
 
