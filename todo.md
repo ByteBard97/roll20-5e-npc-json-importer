@@ -44,22 +44,15 @@
     - **Next Step:** Investigate if the `setTimeout` can be safely reduced or replaced with a more event-driven approach. Profile other parts of the script if significant delays persist.
 
 - [ ] **Automatic Spell Population via D&D 5e API Integration:**
-    - **Goal:** Integrate with the D&D 5e API (https://www.dnd5eapi.co/) to automatically populate complete spell details for SRD spells when only spell names are provided in JSON.
-    - **JSON Input Enhancement:** Support a `spells` field in the NPC JSON structure:
-      ```json
-      "spells": {
-        "cantrips": ["mage hand", "minor illusion", "prestidigitation"],
-        "1": ["detect magic", "magic missile", "shield"],
-        "3": ["fireball", "counterspell"]
-      }
-      ```
-    - **Implementation Details:**
-      - Create new module `ImportNpcJson_Spells.js` to handle API integration.
-      - Use `fetch()` API to retrieve spell data from `https://www.dnd5eapi.co/api/spells/?name={spellName}`.
-      - Populate `repeating_spell-` attributes with complete spell details (name, level, school, casting time, range, components, duration, description).
-      - Implement fallback system: API first, then spell name only if API fails.
-      - Add caching mechanism for frequently used spells to improve performance.
-      - Handle async operations properly within Roll20's API context.
+    - **Status:** DESIGN COMPLETE – see `SPELL_IMPORT_PLAN.md` (2025-06-18). Implementation pending.
+    - **Goal:** Integrate with the D&D 5e API (https://www.dnd5eapi.co/) to automatically populate complete spell details for SRD spells when only spell names are provided.
+    - **JSON Input Enhancement:** Support a `spells` field in the NPC JSON structure *(documented in the plan)*.
+    - **Implementation Roadmap (see plan for full details):**
+        1. New module `ImportNpcJson_SpellImporter.js` (handles parsing, API fetch, attribute creation, caching).
+        2. Fallback regex parser to extract spell names/levels from the free-form "Spellcasting" trait for legacy NPCs.
+        3. Chat command `!5enpcimport spells` to retrofit spells onto already-imported NPCs.
+        4. Integrate automatic call inside `ImportNpcJson_Builder.buildNpc` for new imports.
+        5. Add duplicate detection, edge-case handling, and caching to respect API limits.
     - **Benefits:** Dramatically reduces manual spell entry for NPCs, automatically populates all SRD spell details while maintaining legal compliance.
     - **Scope:** SRD spells only (319+ spells covering core 0-9 level spells). Non-SRD spells from purchased books would still populate as name-only entries for manual completion.
 
